@@ -25,12 +25,13 @@ def load_config(root):
     return conf
 
 
-def generate_config(ssh_host, remote_path, ssh_user=None, ignores=[]):
+def generate_config(ssh_host, ssh_port, remote_path, ssh_user=None, ignores=[]):
     return {
         "remote": remote_path,
         "ssh": {
             "username": ssh_user,
             "host": ssh_host,
+            "port": ssh_port
         },
         "ignores": ignores,
     }
@@ -57,6 +58,7 @@ def exclude_sub_cmds(ignores):
 def rsync_cmds(local_path, conf):
 
     ssh_conf = conf["ssh"]
+    ssh_port = ssh_conf["port"]
     remote_path = conf["remote"]
     ignores = conf["ignores"]
 
@@ -66,7 +68,7 @@ def rsync_cmds(local_path, conf):
         cmds += exclude_sub_cmds(ignores)
 
     cmds += ["--rsync-path", "mkdir -p {} && rsync".format(remote_path)]
-    cmds += [local_path, ssh_path(ssh_conf, remote_path)]
+    cmds += [local_path, "-e ssh -p {}".format(ssh_port), ssh_path(ssh_conf, remote_path)]
 
     return cmds
 

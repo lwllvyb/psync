@@ -31,6 +31,7 @@ def get_project_root():
 def ask_for_configs():
     remote_path = click.prompt("Remote path", default="~/remote/path")
     ssh_host = click.prompt("SSH host", default="ssh_host")
+    ssh_port = click.prompt("SSH port",default="22")
     ssh_user = click.prompt("SSH username or enter '-' to skip",
                             default="ssh_user")
     ignores = click.prompt("Files or folders to ignore "
@@ -46,6 +47,7 @@ def ask_for_configs():
 
     return psync.generate_config(ssh_user=ssh_user,
                                  ssh_host=ssh_host,
+                                 ssh_port=ssh_port,
                                  remote_path=remote_path,
                                  ignores=ignores)
 
@@ -95,7 +97,7 @@ def perform_sync():
         conf = psync.load_config(root=root)
 
         for cmd in psync.cmds_seq(root, conf):
-            click.echo("Running: {}".format(cmd[0]))
+            click.echo("Running: {}".format(cmd))
             run_shell(cmd)
 
         click.echo("--- Sync Finished ---")
