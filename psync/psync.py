@@ -62,7 +62,7 @@ def rsync_cmds(local_path, conf):
     remote_path = conf["remote"]
     ignores = conf["ignores"]
 
-    cmds = ["rsync", "-e", "ssh", "-ruaz"]
+    cmds = ["rsync", "-e", "ssh", "-ruaz", "--delete"]
 
     if len(ignores) > 0:
         cmds += exclude_sub_cmds(ignores)
