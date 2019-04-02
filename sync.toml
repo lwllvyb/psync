@@ -1,0 +1,32 @@
+[project1]
+ignores = [".git", ".psync", "*.o"]
+local = "/localproject"
+[project1.ssh]
+[project1.ssh.1]
+host = "xx.xx.xx.xx"
+port = "22"
+username = "root"
+remote = "/opt/"
+
+[project1.ssh.2]
+host = "xx.xx.x.x"
+port = "22"
+username = "root"
+remote = "/opt/"
+
+
+[project2]
+ignores = [".git", ".psync", "*.o"]
+local = "/vagrant/mebs"
+[project2.ssh]
+[project2.ssh.1]
+host = "x.x.x.x"
+port = "22"
+username = "root"
+remote = "/opt/"
+
+[project2.ssh.2]
+host = "x.x.x.x"
+port = "22"
+username = "root"
+remote = "/opt/test/"
